@@ -1,6 +1,4 @@
-﻿using System;
-
-
+﻿
 namespace check_in_user_registration
 {
     public class RegisterUserRequest
@@ -12,5 +10,7 @@ namespace check_in_user_registration
         public string UUID { get; set; }
 
         public string FaceImageAsBase64 { get; set; }
+
+        public string Name { get; set; }
     }
 }
