@@ -1,2 +1,2 @@
-# ZCheckIn-UserRegistration
-This is an Azure function that is responsible for registering a new user.
+# ZCheckIn-Backend
+This is the ZCheckIn-Backend that is responsible for processing uploads of unknown users and registering them.
