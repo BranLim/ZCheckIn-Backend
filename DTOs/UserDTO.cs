@@ -1,5 +1,5 @@
 ﻿
-namespace check_in_user_registration
+namespace ZCheckIn.Backend
 {
     public class RegisterUserRequest
     {

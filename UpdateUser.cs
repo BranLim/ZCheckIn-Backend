@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage.Blob;
+using ZCheckIn.Backend.DTOs;
 
-namespace check_in_user_registration
+namespace ZCheckIn.Backend
 {
-    public static class RegisterUser
+    public static class UpdateUser
     {
-        [FunctionName("RegisterUser")]
+        [FunctionName("UpdateUser")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             [Blob("users", FileAccess.Write, Connection = "StorgeConnectionString")] CloudBlobContainer outputContainer,
@@ -27,7 +28,7 @@ namespace check_in_user_registration
                 return new BadRequestObjectResult("Invalid request body");
             }
 
-            RegisterUserRequest data = JsonConvert.DeserializeObject<RegisterUserRequest>(requestBody);
+            UserDTO data = JsonConvert.DeserializeObject<UserDTO>(requestBody);
 
             string uuid = data?.UUID;
 
@@ -42,10 +43,10 @@ namespace check_in_user_registration
             }
 
             await blob.UploadTextAsync(requestBody);
-            log.LogInformation("User registered");
+            log.LogInformation("User updated");
 
 
-            return new OkObjectResult(string.Format("User {0} registered.", data?.Name));
+            return new OkObjectResult(string.Format("User {0} updated.", data?.Name));
         }
     }
 }
