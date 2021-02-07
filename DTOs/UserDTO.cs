@@ -1,9 +1,9 @@
 ﻿
-namespace ZCheckIn.Backend
+namespace ZCheckIn.Backend.DTOs
 {
-    public class RegisterUserRequest
+    public class UserDTO
     {
-        public RegisterUserRequest()
+        public UserDTO()
         {
         }
 

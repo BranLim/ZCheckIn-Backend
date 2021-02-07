@@ -17,7 +17,7 @@ namespace ZCheckIn.Backend
         [FunctionName("UpdateUser")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
-            [Blob("users", FileAccess.Write, Connection = "StorgeConnectionString")] CloudBlobContainer outputContainer,
+            [Blob("users", FileAccess.Write, Connection = "Azurite_Storage")] CloudBlobContainer outputContainer,
             ILogger log)
         {
             log.LogInformation("Registering User.");

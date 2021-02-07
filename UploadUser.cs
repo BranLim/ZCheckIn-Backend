@@ -17,7 +17,7 @@ namespace ZCheckIn.Backend
         [FunctionName("UploadUser")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
-             [Blob("users", FileAccess.Write, Connection = "StorgeConnectionString")] CloudBlobContainer outputContainer,
+             [Blob("users", FileAccess.Write, Connection = "Azurite_Storage")] CloudBlobContainer outputContainer,
             ILogger log)
         {
             log.LogInformation("Uploading user profile to Blob Storage");
@@ -37,10 +37,20 @@ namespace ZCheckIn.Backend
                 return new BadRequestObjectResult("missing user image");
             }
 
-            await outputContainer.CreateIfNotExistsAsync();
-            
+            try
+            {
+                log.LogInformation("Creating storage container if not exists.");
+                await outputContainer.CreateIfNotExistsAsync();
+            }
+            catch (Exception e)
+            {
+                log.LogError(string.Format("Fail to create container. Error: {0}", e.Message));
+                return new BadRequestObjectResult("Failed to create storage container.");
+            }
+
+
             CloudBlockBlob blob = outputContainer.GetBlockBlobReference("user/" + uuid);
-            
+
             await blob.UploadTextAsync(JsonConvert.SerializeObject(data));
             log.LogInformation("User registered");
 

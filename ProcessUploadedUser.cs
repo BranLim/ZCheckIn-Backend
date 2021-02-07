@@ -9,9 +9,9 @@ namespace ZCheckIn_Backend
     public static class ProcessUploadedUser
     {
         [FunctionName("ProcessUploadedUser")]
-        public static void Run([BlobTrigger("samples-workitems/{name}", Connection = "")]Stream myBlob, string name, ILogger log)
+        public static void Run([BlobTrigger("user/{uuid}", Connection = "Azurite_Storage")]Stream myBlob, string uuid, ILogger log)
         {
-            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{uuid} \n Size: {myBlob.Length} Bytes");
         }
     }
 }
